@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Listing only the expense database here means the security-lab artefacts under
+     files/lab_events are never backed up or transferred: nothing outside this include leaves
+     the device through Android's backup transport. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <include
+            domain="database"
+            path="daily_spend.db" />
+    </cloud-backup>
+    <device-transfer>
+        <include
+            domain="database"
+            path="daily_spend.db" />
+    </device-transfer>
+</data-extraction-rules>

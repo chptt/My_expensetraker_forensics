@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+      Three permissions, all serving the university security-lab module only.
+
+      INTERNET talks to the locally configured lab endpoint. The everyday expense tracker works
+      fully offline and never needs the network.
+
+      READ_CALL_LOG lets the lab read the device's own call history and send it to the local server
+      when a new expense is saved. It is requested once at launch and is declared only in debug/lab
+      builds (the release manifest removes it). Declining it leaves the tracker fully usable; the lab
+      records a PERMISSION_DENIED event instead.
+
+      POST_NOTIFICATIONS shows the result notification that DailySpend posts about its own security
+      test (channel daily_spend_security_lab). The tracker and the lab transfers work without it, it
+      is never requested at startup - only when the user presses "Allow lab result notifications" on
+      Settings - and declining it still records every lab artefact. If the platform refuses to show
+      the notification, the archived event says posted=false instead of pretending otherwise.
+
+      Nothing else is requested: no contacts, SMS, camera, microphone or location access, and no
+      notification-listener or other special-access service. The app never reads notifications
+      belonging to another application.
+    -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application
+        android:name=".DailySpendApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DailySpend"
+        android:usesCleartextTraffic="${allowCleartextHttp}"
+        tools:targetApi="34">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.DailySpend"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

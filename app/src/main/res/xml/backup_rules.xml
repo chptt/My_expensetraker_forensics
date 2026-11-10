@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Only the expense database is backed up, so the lab artefacts under files/lab_events are
+     never included in an auto backup. -->
+<full-backup-content>
+    <include
+        domain="database"
+        path="daily_spend.db" />
+</full-backup-content>
